@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-back-button defaulHref = ""></ion-back-button>
+      </ion-buttons>
+    <ion-title>Produtos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <!--Inicio conteúdo das informações de um contato salvo-->
+
+    <ion-fab id="sdd" vertical="top" horizontal="end" slot="fixed" edge="true">
+      <ion-fab-button routerLink="/detalhes/add">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+
+    <ion-item *ngFor="let arrayProduto of todosdados" routerLink="/produtos/{{arrayProduto.id.value}}">
+      <ion-avatar slot="start">
+        <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+        <!-- <ion-icon name="person-circle-outline"></ion-icon> -->
+      </ion-avatar>
+      <ion-label>{{arrayProduto.nome}}</ion-label>
+    </ion-item>
+
+    
+</ion-content>
