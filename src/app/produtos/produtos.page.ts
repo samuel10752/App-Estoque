@@ -1,8 +1,6 @@
 import { Component,  OnInit } from '@angular/core';
-import { Guid } from 'guid-typescript';
-import { Produto } from '../models/produto.models';
 import { ProdutosService } from '../services/produtos.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-produtos',
@@ -11,35 +9,37 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ProdutosPage implements OnInit {
 
-  private produto : Produto
-  public produtoForm: FormGroup
-  public arrayProduto: any
+  public todosdados : any
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private produtoService: ProdutosService
-  ) {}
-
-
-  ngOnInit(){
-
-    this.produto = {id: Guid.createEmpty(), nome:"",validade:"",valor:0,quantidade:0}
-
-    this.produtoForm = this.formBuilder.group
-    ({
-      id : [this.produto.id],
-      nome: [this.produto.nome,Validators.required],
-      validade: [this.produto.validade,Validators.required],
-      valor: [this.produto.valor,Validators.required],
-      quantidade: [this.produto.quantidade,Validators.required]
-    })
-
-      this.produtoService.listartodos().then(arrayProduto => {this.arrayProduto = arrayProduto})
+  constructor(private dados : ProdutosService) { 
+    this.todosdados = this.dados.EnviarTodosProdutos()
   }
 
-  enviar(){
-    if (this.produtoForm.valid){
-      this.produtoService.inserir(this.produtoForm.value)
+  ngOnInit() {
+
+    this.detalhesContato = {id: Guid.createEmpty(), nome:"", sobrenome:"", tipo:"",telefone:"", email:""}
+
+    // validação do formulário enviado pela pagina HTML
+    this.contatoForm = this.formBuilder.group({
+      id: [this.detalhesContato.id],
+      nome : [this.detalhesContato.nome, Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(15)])],
+      sobrenome : [this.detalhesContato.sobrenome],
+      tipo : [this.detalhesContato.tipo, Validators.required],
+      telefone : [this.detalhesContato.telefone, Validators.required],
+      email : [this.detalhesContato.email, Validators.email]
+      })
+    
+    // captura do id do contato
+    const id : string = String(this.objRoute.snapshot.paramMap.get('id'))
+
+    //id maior que 0, contato já existe então é carregado no objeto detalhesContato os valores salvos no array da classe "service"
+    if (id != 'add'){
+      this.objDadosService.FiltraContatosId(id).then(array => this.detalhesContato  = array)
+
+    }
+    else{
+      //this.detalhesContato = {id, nome : "", sobrenome : "", tipo : "", telefone : "", email : ""}
+      this.modoEdicao = true
     }
   }
 }
