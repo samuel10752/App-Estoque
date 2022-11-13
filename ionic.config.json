@@ -1,5 +1,7 @@
 {
-  "name": "Estoque",
-  "integrations": {},
+  "name": "Estoque-db",
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

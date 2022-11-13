@@ -12,13 +12,20 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'produtos',
-    loadChildren: () => import('./produtos/produtos.module').then( m => m.ProdutosPageModule)
+    path: 'cadastro',
+    loadChildren: () => import('./Produtos/cadastro/cadastro.module').then( m => m.CadastroPageModule)
   },
   {
-    path: 'produtos-detalhes/:id',
-    loadChildren: () => import('./produtos-detalhes/produtos-detalhes.module').then( m => m.ProdutosDetalhesPageModule)
+    path: 'historico',
+    loadChildren: () => import('./Produtos/historico/historico.module').then( m => m.HistoricoPageModule)
   },
+
+  {
+    //Isso aqui é essencial para o router pegar o id e ir pra pagina certa
+    path: 'detalhes/:id',
+    loadChildren: () => import('./Produtos/detalhes/detalhes.module').then( m => m.DetalhesPageModule)
+  },
+
 ];
 
 @NgModule({
