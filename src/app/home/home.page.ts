@@ -1,8 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Guid } from 'guid-typescript';
-import { Produto } from '../models/produto.models';
-import { ProdutosService } from '../services/produtos.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -10,5 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+
+  constructor() {}
 
 }

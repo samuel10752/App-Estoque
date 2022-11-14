@@ -1,0 +1,26 @@
+ion-content{
+    .top{
+        margin: 20% 0 10% 0;
+      
+        h1{
+            font-size: x-large;
+            text-align: center;
+        }
+    
+    }
+
+    ion-item{
+        padding: 0 5px 0 5px;
+    }
+
+    .but{
+        width: 80%;
+        height: 45px;
+        margin: 30px 0 0 10% ;
+      }
+
+    .null{
+        display: none;
+    }
+    
+}
