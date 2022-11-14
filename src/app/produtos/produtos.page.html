@@ -1,28 +1,57 @@
+
+
 <ion-header>
   <ion-toolbar>
-    <ion-buttons>
-      <ion-back-button defaulHref = ""></ion-back-button>
-      </ion-buttons>
-    <ion-title>Listagem Produtos</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-list>
-    <ion-item *ngFor="let todosdados of todosdados" routerLink="/produtos-detalhes/{{produtoselecionado.id}}">
-      <ion-avatar>
-        <img alt="Silhouette of a person's head"  />
-      </ion-avatar>
-      <ion-label>{{produtoselecionado.nome}}</ion-label>
-    </ion-item>
-  </ion-list>
+  <div id="top">
+    <h1>Cadastrar produto</h1>
+  </div>    
+
+  <div id="formulario">
 
 
-  <ion-fab id="icon" vertical="top" horizontal="end" slot="fixed" edge="true">
-    <ion-fab-button routerLink="/produtos-detalhes/-1">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-    
+<!-- Aqui fica o formulario de cadastro de um novo item no storage -->
+    <div id="info-principa">
+      <form #form="ngForm" [formGroup]="AddForm" (ngSubmit)="presentAlert()" >
+
+        <ion-item>
+          <ion-label position="floating"> Nome:</ion-label>
+          <ion-input [(ngModel)]="detalhesProduto.nome" formControlName="nome" [clearInput]="true"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating"> Descrição breve:</ion-label>
+          <ion-input [(ngModel)]="detalhesProduto.desc_breve" formControlName="desc_breve" [clearInput]="true"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating"> Fornecedor:</ion-label>
+          <ion-input [(ngModel)]="detalhesProduto.fornecedor" formControlName="fornecedor" [clearInput]="true"></ion-input>
+        </ion-item>
+
+        <ion-item id="part2">
+          <ion-label position="floating"> Valor de venda:</ion-label>
+          <ion-input [(ngModel)]="detalhesProduto.valor" formControlName="valor" [clearInput]="true" type="number" ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating"> Quantidade em estoque:</ion-label>
+          <ion-input [(ngModel)]="detalhesProduto.quantidade" formControlName="quantidade" [clearInput]="true" placeholder="0" type="number"></ion-input>
+        </ion-item>
+
+        <ion-button class="but" type="submit">CADASTRAR</ion-button>
+
+      </form>
+
+    </div>
+
+  </div>
+
 </ion-content>
