@@ -1,80 +1,99 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { ActivatedRoute, Route, Router, RouterLink } from '@angular/router';
+import { Produto } from '../models/produto.models';
 import { ProdutosService } from '../services/produtos.service';
-@Component({
-  selector: 'app-produtos-detalhes',
-  templateUrl: './produtos-detalhes.page.html',
-  styleUrls: ['./produtos-detalhes.page.scss'],
-})
-export class ProdutosDetalhesPage implements OnInit {
+import { Guid } from 'guid-typescript';
+import { AlertController, NavController } from '@ionic/angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-  public produtoselecionado : any
-  public modoDeEdicao = false
-  handlerMessage = '';
-  roleMessage = '';
-  userForm : FormGroup
+@Component({
+  selector: 'app-detalhes',
+  templateUrl: './detalhes.page.html',
+  styleUrls: ['./detalhes.page.scss'],
+})
+export class DetalhesPage implements OnInit {
+  private detalhesProduto : Produto
+  public modoEdicao = false
+  public moviForm : FormGroup
 
   constructor(
-    private router: Router,
-    private route : ActivatedRoute,
-    private produto : ProdutosService,
-    private alertController: AlertController
+    private objDadosService : ProdutosService,
+    private objRoute: ActivatedRoute,
+    public formBuilder: FormBuilder,
+    private alertController: AlertController,
+    public navCtrl: NavController
   ) { }
 
-  iniciarEdicao() {
-    this.modoDeEdicao = true
-  }
-
-  encerrarEdicao() {
-    const id: number = Number (this.route.snapshot.paramMap.get('id'))
-    if (id > 0 ){
-
-      this.modoDeEdicao = false
-    } else {
-      this.produto.recebeDados(this.produtoselecionado)
-      this.modoDeEdicao = false
-    }
-  }
-  ngOnInit() {
-
-    const id: number = Number (this.route.snapshot.paramMap.get('id'))
-    if (id > 0 ){
-       this.produtoselecionado = this.produto.enviardadosid(id)
-    } else{
-
-    this.produtoselecionado = {id , nome: "", numero: 0.0}
-    this.modoDeEdicao= true
-    }
-  }
-
-  deletarServico(){
-    this.produto.ExcluirProdutoId(this.produtoselecionado)
-    this.router.navigate(['/agenda-lista/'])
-  }
-    async presentAlert() {
+  //alert se realmente desej aou n excluir o produto
+  async presentAlert() {
     const alert = await this.alertController.create({
-      header: 'Alert!',
+      header: 'Deseja excluir o produto?!',
       buttons: [
         {
-          text: 'Cancel',
-          role: 'cancel',
+          text: 'Não',
           handler: () => {
-            this.handlerMessage = '';
+            ;
           },
         },
         {
-          text: 'OK',
-          handler: () => {this.deletarServico();}
+          text: 'Sim',
+          handler: () => {
+            //botão 'Sim' chama o método que exclui contato
+            this.ExcluirProduto(),
+            this.navCtrl.back()
+            ;
           },
+        },
       ],
     });
-
     await alert.present();
-
-    const { role } = await alert.onDidDismiss();
-    this.roleMessage = `Dismissed with role: ${role}`;
   }
+
+  IniciarEdicao(){
+    this.modoEdicao = true
+  }
+
+  //Essa func ao encerrar a edição e voltar com os detalhes mapea o id e envia ele com os dados do form para a func de compra que att o banco
+  // O formulario ta passando todos os valores de volta porem so aparece pra edição a quantidade, n é recomendavel mas é o q temos
+  EncerrarEdicao(){
+    const id : string = String(this.objRoute.snapshot.paramMap.get('id'))
+    if (this.moviForm.valid){
+      this.objDadosService.ComprarProduto(id, this.moviForm.value)
+      this.modoEdicao = false
+    }
+  }
+
+  //usado ora testar troca dde telas pelo modo de edição
+  comprar(){
+    console.log("funciona")
+  }
+
+
+  ngOnInit() {
+    //Mesmo role de validação mas valida apenas quantidade que n pode passar null -- os demais tão ai pra n quebrar codigo
+    this.detalhesProduto = {id : Guid.createEmpty(), nome:"", validade:"", fornecedor:"", valor:"", quantidade:""}
+
+    const id : string = String(this.objRoute.snapshot.paramMap.get('id'))
+    this.objDadosService.FiltraProdutoId(id).then(array => this.detalhesProduto= array)
+
+    this.moviForm = this.formBuilder.group({
+      id : [this.detalhesProduto.id],
+      nome : [this.detalhesProduto.nome],
+      validade: [this.detalhesProduto.validade],
+      fornecedor : [this.detalhesProduto.fornecedor],
+      valor : [this.detalhesProduto.valor],
+      quantidade : [this.detalhesProduto.quantidade, Validators.compose([Validators.required])]
+    })
+
+  }
+
+  ExcluirProduto(){
+    // captura do id do contato
+    const id : string = String(this.objRoute.snapshot.paramMap.get('id'))
+    
+    //e passa ele pra exclusão
+    this.objDadosService.ExcluirProdutoId(id)
+  }
+
 
 }

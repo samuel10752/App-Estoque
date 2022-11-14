@@ -1,45 +1,82 @@
-import { Component,  OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Guid } from 'guid-typescript';
+import { Produto } from '../models/produto.models';
 import { ProdutosService } from '../services/produtos.service';
-
+import { AlertController, NavController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-produtos',
-  templateUrl: './produtos.page.html',
-  styleUrls: ['./produtos.page.scss'],
+  selector: 'app-cadastro',
+  templateUrl: './cadastro.page.html',
+  styleUrls: ['./cadastro.page.scss'],
 })
-export class ProdutosPage implements OnInit {
+export class CadastroPage implements OnInit {
 
-  public todosdados : any
+  private detalhesProduto : Produto
+  public AddForm: FormGroup
 
-  constructor(private dados : ProdutosService) { 
-    this.todosdados = this.dados.EnviarTodosProdutos()
+  constructor(
+    private objDadosService: ProdutosService, //Service - - E o que usa pra puxas as func q estão lá
+    public formBuilder: FormBuilder, // Formulario lá
+    private alertController: AlertController,// objeto usado para criar a caixa de alerta
+    public navCtrl: NavController, //objeto usado voltar de pagina
+    private objRoute : ActivatedRoute, //objeto usado para 'pegar' o id do contato passado através da pagina inicial
+
+  ) { }
+    // cria um alert pra falar que o produto foi adicionado e volta
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Adicionar Produto!?',
+      buttons: [
+        {
+          text: 'Não',
+          handler: () => {
+            ;
+          },
+        },
+        {
+          text: 'Sim',
+          handler: () => {
+            //botão sim insere contato no banco
+            this.Cadastrar()
+            this.navCtrl.back()
+            ;
+          },
+        },
+      ],
+    });
+    await alert.present();
   }
 
   ngOnInit() {
 
-    this.detalhesContato = {id: Guid.createEmpty(), nome:"", sobrenome:"", tipo:"",telefone:"", email:""}
+    //Aqui faz a validção do formulaio 
+    this.detalhesProduto = {id : Guid.createEmpty(), nome:"", validade:"", fornecedor:"", valor:"", quantidade:""}
 
-    // validação do formulário enviado pela pagina HTML
-    this.contatoForm = this.formBuilder.group({
-      id: [this.detalhesContato.id],
-      nome : [this.detalhesContato.nome, Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(15)])],
-      sobrenome : [this.detalhesContato.sobrenome],
-      tipo : [this.detalhesContato.tipo, Validators.required],
-      telefone : [this.detalhesContato.telefone, Validators.required],
-      email : [this.detalhesContato.email, Validators.email]
-      })
+    this.AddForm = this.formBuilder.group({
+      id : [this.detalhesProduto.id],
+      nome : [this.detalhesProduto.nome, Validators.compose([Validators.required])],
+      fornecedor : [this.detalhesProduto.fornecedor, Validators.compose([Validators.required])],
+      valor : [this.detalhesProduto.valor, Validators.compose([Validators.required])],
+      quantidade : [this.detalhesProduto.quantidade, Validators.compose([Validators.required])],
+      validade : [this.detalhesProduto.validade, Validators.compose([Validators.required])]
+    })
+
+
+  }
+
+  //Aqui se o formulario for valido ele passa os dados para a func q adiciona no banco e em seguida passa o alert lá de cima 
+  Cadastrar(){
+    if (this.AddForm.valid){
+      this.objDadosService.inserirProduto( this.AddForm.value)
+    }
     
-    // captura do id do contato
-    const id : string = String(this.objRoute.snapshot.paramMap.get('id'))
+  //   const id : string = String(this.objRoute.snapshot.paramMap.get('id'))
+  //   if (this.AddForm.valid){
+  //     this.objDadosService.MostrarTudo(id, this.AddForm.value)
+  // }
 
-    //id maior que 0, contato já existe então é carregado no objeto detalhesContato os valores salvos no array da classe "service"
-    if (id != 'add'){
-      this.objDadosService.FiltraContatosId(id).then(array => this.detalhesContato  = array)
-
-    }
-    else{
-      //this.detalhesContato = {id, nome : "", sobrenome : "", tipo : "", telefone : "", email : ""}
-      this.modoEdicao = true
-    }
+  
   }
 }
