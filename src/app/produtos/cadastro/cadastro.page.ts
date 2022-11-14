@@ -5,7 +5,7 @@ import { Produto } from 'src/app/Models/produto';
 import { ProdutosServService } from 'src/app/Service/produtos-serv.service';
 import { AlertController, NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
-
+import { SimpleMaskModule } from 'ngx-ion-simple-mask'
 @Component({
   selector: 'app-cadastro',
   templateUrl: './cadastro.page.html',
@@ -52,12 +52,14 @@ export class CadastroPage implements OnInit {
   ngOnInit() {
 
     //Aqui faz a validção do formulaio 
-    this.detalhesProduto = {id : Guid.createEmpty(), nome:"", desc_breve:"", fornecedor:"", valor:"", quantidade:""}
+    this.detalhesProduto = {id : Guid.createEmpty(), nome:"", validade:"", fornecedor:"", valor:"", quantidade:"", entrega:"",desc:"",}
 
     this.AddForm = this.formBuilder.group({
       id : [this.detalhesProduto.id],
-      nome : [this.detalhesProduto.nome, Validators.compose([Validators.required])],
-      desc_breve: [this.detalhesProduto.desc_breve, Validators.compose([Validators.required])],
+      nome : [this.detalhesProduto.nome, Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(15)])],
+      validade: [this.detalhesProduto.validade,Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(10)])],
+      entrega: [this.detalhesProduto.entrega,Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(10)])],
+      desc : [this.detalhesProduto.desc, Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(50)])],
       fornecedor : [this.detalhesProduto.fornecedor, Validators.compose([Validators.required])],
       valor : [this.detalhesProduto.valor, Validators.compose([Validators.required])],
       quantidade : [this.detalhesProduto.quantidade, Validators.compose([Validators.required])]

@@ -27,8 +27,8 @@
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating"> Descrição breve:</ion-label>
-          <ion-input [(ngModel)]="detalhesProduto.desc_breve" formControlName="desc_breve" [clearInput]="true"></ion-input>
+          <ion-label position="floating"> Descrição do Produto:</ion-label>
+          <ion-input [(ngModel)]="detalhesProduto.desc" formControlName="desc" [clearInput]="true"></ion-input>
         </ion-item>
 
         <ion-item>
@@ -37,12 +37,22 @@
         </ion-item>
 
         <ion-item id="part2">
-          <ion-label position="floating"> Valor de venda:</ion-label>
-          <ion-input [(ngModel)]="detalhesProduto.valor" formControlName="valor" [clearInput]="true" type="number" ></ion-input>
+          <ion-label position="floating"> Valor:</ion-label>
+          <ion-input [(ngModel)]="detalhesProduto.valor" formControlName="valor"  [clearInput]="true" type="number" ></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating"> Quantidade em estoque:</ion-label>
+          <ion-label position="floating"> Data de Validade:</ion-label>
+          <ion-input  [(ngModel)]="detalhesProduto.validade"  formControlName="validade" simpleMask="99/99/9999" [clearInput]="true"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating"> Data de Entrega:</ion-label>
+          <ion-input  [(ngModel)]="detalhesProduto.entrega"   formControlName="entrega" simpleMask="99/99/9999" [clearInput]="true"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating"> Quantidade no estoque:</ion-label>
           <ion-input [(ngModel)]="detalhesProduto.quantidade" formControlName="quantidade" [clearInput]="true" placeholder="0" type="number"></ion-input>
         </ion-item>
 

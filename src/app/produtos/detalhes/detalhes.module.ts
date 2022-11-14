@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { DetalhesPageRoutingModule } from './detalhes-routing.module';
-
+import { SimpleMaskModule } from 'ngx-ion-simple-mask'
 import { DetalhesPage } from './detalhes.page';
 
 @NgModule({
@@ -14,7 +14,8 @@ import { DetalhesPage } from './detalhes.page';
     FormsModule,
     IonicModule,
     ReactiveFormsModule, //aqui tem q add pro formulario rodar
-    DetalhesPageRoutingModule
+    DetalhesPageRoutingModule,
+    SimpleMaskModule
   ],
   declarations: [DetalhesPage]
 })

@@ -23,13 +23,23 @@
     </ion-item>
 
     <ion-item >
-      <ion-label>desc_breve:</ion-label>
-      <p>{{detalhesProduto.desc_breve}}</p>
+      <ion-label>Descrição:</ion-label>
+      <p>{{detalhesProduto.desc}}</p>
     </ion-item>
 
     <ion-item >
       <ion-label>fornecedor:</ion-label>
       <p>{{detalhesProduto.fornecedor}}</p>
+    </ion-item>
+
+    <ion-item >
+      <ion-label>Data de Validade:</ion-label>
+      <p>{{detalhesProduto.validade}}</p>
+    </ion-item>
+
+    <ion-item >
+      <ion-label>Data da Entrega:</ion-label>
+      <p>{{detalhesProduto.entrega}}</p>
     </ion-item>
 
     <ion-item >
@@ -62,20 +72,24 @@
 
     <form #form="ngForm" (ngSubmit)="EncerrarEdicao()" [formGroup]="moviForm">
 
-
-      <!-- class null é mo gambiarra boy Deus o livre -->
-      <!-- A func de att ela atualiza todos os itens de um determinado id e eu n consegui modificar isso,
-      portanto esses itens abaixo n deixa atualizar tudo no banco como null e com depois esconde ou seja tem os inouts pro user 
-    mexer só n aparece pra ele pelo css ysando display none -->
-
       <ion-item class="null">
         <ion-label position="floating"> Nome:</ion-label>
         <ion-input [(ngModel)]="detalhesProduto.nome" formControlName="nome"></ion-input>
       </ion-item>
 
       <ion-item class="null">
-        <ion-label position="floating"> Descrição breve:</ion-label>
-        <ion-input [(ngModel)]="detalhesProduto.desc_breve" formControlName="desc_breve"></ion-input>
+        <ion-label position="floating"> Validade:</ion-label>
+        <ion-input [(ngModel)]="detalhesProduto.validade" formControlName="validade"></ion-input>
+      </ion-item>
+
+      <ion-item class="null">
+        <ion-label position="floating"> Descrição do Produto:</ion-label>
+        <ion-input [(ngModel)]="detalhesProduto.desc" formControlName="desc" [clearInput]="true"></ion-input>
+      </ion-item>
+
+      <ion-item class="null">
+        <ion-label position="floating"> Data de Entrega:</ion-label>
+        <ion-input [(ngModel)]="detalhesProduto.entrega" formControlName="entrega" [clearInput]="true"></ion-input>
       </ion-item>
 
       <ion-item class="null">
@@ -84,7 +98,7 @@
       </ion-item>
 
       <ion-item id="part2" class="null">
-        <ion-label position="floating"> Valor de venda:</ion-label>
+        <ion-label position="floating"> Valor:</ion-label>
         <ion-input [(ngModel)]="detalhesProduto.valor" formControlName="valor" ></ion-input>
       </ion-item>
 

@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { HistoricoPageRoutingModule } from './historico-routing.module';
+import { SimpleMaskModule } from 'ngx-ion-simple-mask'
 
 import { HistoricoPage } from './historico.page';
 
@@ -13,7 +14,8 @@ import { HistoricoPage } from './historico.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    HistoricoPageRoutingModule
+    HistoricoPageRoutingModule,
+    SimpleMaskModule
   ],
   declarations: [HistoricoPage]
 })

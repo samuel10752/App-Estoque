@@ -3,8 +3,10 @@ import { Guid } from 'guid-typescript';
 export interface Produto {
     id: Guid, 
     nome: string, 
-    desc_breve: string, 
+    validade: string, 
     fornecedor: string,
     valor: string,
-    quantidade: string
+    quantidade: string,
+    entrega:String,
+    desc:String,
 }

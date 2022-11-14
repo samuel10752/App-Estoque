@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProdutosServService } from 'src/app/Service/produtos-serv.service';
-
+import { SimpleMaskModule } from 'ngx-ion-simple-mask'
 @Component({
   selector: 'app-historico',
   templateUrl: './historico.page.html',

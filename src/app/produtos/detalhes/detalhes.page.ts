@@ -5,7 +5,7 @@ import { ProdutosServService } from 'src/app/Service/produtos-serv.service';
 import { Guid } from 'guid-typescript';
 import { AlertController, NavController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { SimpleMaskModule } from 'ngx-ion-simple-mask'
 @Component({
   selector: 'app-detalhes',
   templateUrl: './detalhes.page.html',
@@ -71,7 +71,7 @@ export class DetalhesPage implements OnInit {
 
   ngOnInit() {
     //Mesmo role de validação mas valida apenas quantidade que n pode passar null -- os demais tão ai pra n quebrar codigo
-    this.detalhesProduto = {id : Guid.createEmpty(), nome:"", desc_breve:"", fornecedor:"", valor:"", quantidade:""}
+    this.detalhesProduto = {id : Guid.createEmpty(), nome:"", validade:"", fornecedor:"", valor:"", quantidade:"",entrega:"",desc:""}
 
     const id : string = String(this.objRoute.snapshot.paramMap.get('id'))
     this.objDadosService.FiltraProdutoId(id).then(array => this.detalhesProduto= array)
@@ -79,7 +79,9 @@ export class DetalhesPage implements OnInit {
     this.moviForm = this.formBuilder.group({
       id : [this.detalhesProduto.id],
       nome : [this.detalhesProduto.nome],
-      desc_breve: [this.detalhesProduto.desc_breve],
+      desc : [this.detalhesProduto.desc],
+      validade: [this.detalhesProduto.validade,],
+      entrega: [this.detalhesProduto.entrega],
       fornecedor : [this.detalhesProduto.fornecedor],
       valor : [this.detalhesProduto.valor],
       quantidade : [this.detalhesProduto.quantidade, Validators.compose([Validators.required])]

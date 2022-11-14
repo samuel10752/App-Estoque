@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { CadastroPageRoutingModule } from './cadastro-routing.module';
-
+import { SimpleMaskModule } from 'ngx-ion-simple-mask'
 import { CadastroPage } from './cadastro.page';
 
 @NgModule({
@@ -14,7 +14,8 @@ import { CadastroPage } from './cadastro.page';
     FormsModule,
     IonicModule,
     CadastroPageRoutingModule, 
-    ReactiveFormsModule //aqui tem que adicionar para o formulario rodar
+    ReactiveFormsModule,
+    SimpleMaskModule,// //aqui tem que adicionar para o formulario rodar
   ],
   declarations: [CadastroPage]
 })
