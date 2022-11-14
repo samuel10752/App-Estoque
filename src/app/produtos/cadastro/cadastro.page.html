@@ -40,15 +40,20 @@
           <ion-label position="floating"> Valor:</ion-label>
           <ion-input [(ngModel)]="detalhesProduto.valor" formControlName="valor"  [clearInput]="true" type="number" ></ion-input>
         </ion-item>
+        
+        <ion-item>
+          <ion-label position="floating"> Data de Entrega:</ion-label>
+          <ion-input  [(ngModel)]="detalhesProduto.entrega"   formControlName="entrega" simpleMask="99/99/9999" [clearInput]="true"></ion-input>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label position="floating"> Data de Saida:</ion-label>
+          <ion-input  [(ngModel)]="detalhesProduto.saida"   formControlName="saida" simpleMask="99/99/9999" [clearInput]="true"></ion-input>
+        </ion-item>
 
         <ion-item>
           <ion-label position="floating"> Data de Validade:</ion-label>
           <ion-input  [(ngModel)]="detalhesProduto.validade"  formControlName="validade" simpleMask="99/99/9999" [clearInput]="true"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label position="floating"> Data de Entrega:</ion-label>
-          <ion-input  [(ngModel)]="detalhesProduto.entrega"   formControlName="entrega" simpleMask="99/99/9999" [clearInput]="true"></ion-input>
         </ion-item>
 
         <ion-item>

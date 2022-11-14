@@ -71,7 +71,7 @@ export class DetalhesPage implements OnInit {
 
   ngOnInit() {
     //Mesmo role de validação mas valida apenas quantidade que n pode passar null -- os demais tão ai pra n quebrar codigo
-    this.detalhesProduto = {id : Guid.createEmpty(), nome:"", validade:"", fornecedor:"", valor:"", quantidade:"",entrega:"",desc:""}
+    this.detalhesProduto = {id : Guid.createEmpty(), nome:"", validade:"", fornecedor:"", valor:"", quantidade:"",entrega:"",desc:"",saida:""}
 
     const id : string = String(this.objRoute.snapshot.paramMap.get('id'))
     this.objDadosService.FiltraProdutoId(id).then(array => this.detalhesProduto= array)
@@ -82,6 +82,7 @@ export class DetalhesPage implements OnInit {
       desc : [this.detalhesProduto.desc],
       validade: [this.detalhesProduto.validade,],
       entrega: [this.detalhesProduto.entrega],
+      saida:[this.detalhesProduto.saida],
       fornecedor : [this.detalhesProduto.fornecedor],
       valor : [this.detalhesProduto.valor],
       quantidade : [this.detalhesProduto.quantidade, Validators.compose([Validators.required])]

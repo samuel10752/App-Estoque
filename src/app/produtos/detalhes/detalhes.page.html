@@ -32,14 +32,22 @@
       <p>{{detalhesProduto.fornecedor}}</p>
     </ion-item>
 
-    <ion-item >
-      <ion-label>Data de Validade:</ion-label>
-      <p>{{detalhesProduto.validade}}</p>
-    </ion-item>
-
+    
     <ion-item >
       <ion-label>Data da Entrega:</ion-label>
       <p>{{detalhesProduto.entrega}}</p>
+    </ion-item>
+
+    
+    <ion-item >
+      <ion-label>Data da Saida:</ion-label>
+      <p>{{detalhesProduto.saida}}</p>
+    </ion-item>
+
+
+    <ion-item >
+      <ion-label>Data de Validade:</ion-label>
+      <p>{{detalhesProduto.validade}}</p>
     </ion-item>
 
     <ion-item >
@@ -90,6 +98,11 @@
       <ion-item class="null">
         <ion-label position="floating"> Data de Entrega:</ion-label>
         <ion-input [(ngModel)]="detalhesProduto.entrega" formControlName="entrega" [clearInput]="true"></ion-input>
+      </ion-item>
+
+      <ion-item class="null">
+        <ion-label position="floating"> Data de Saida:</ion-label>
+        <ion-input  [(ngModel)]="detalhesProduto.saida"   formControlName="saida" simpleMask="99/99/9999" [clearInput]="true"></ion-input>
       </ion-item>
 
       <ion-item class="null">

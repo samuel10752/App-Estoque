@@ -9,4 +9,5 @@ export interface Produto {
     quantidade: string,
     entrega:String,
     desc:String,
+    saida:String,
 }
